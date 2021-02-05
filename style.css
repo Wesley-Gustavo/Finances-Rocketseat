@@ -1,0 +1,249 @@
+:root{
+    --main-blue: rgb(34, 67, 255);
+    --gradient: linear-gradient(to right, rgb(38, 0, 255), rgb(97, 179, 255));
+    --bg-body: rgb(221, 221, 221);
+    --bg-white: white;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 93.754%; /* 15 px,*/
+}
+
+body {
+    background: var(--bg-body);
+    font-family: 'Yusei Magic', sans-serif;
+}
+
+header {
+    text-align: center;
+    background-image: var(--gradient);
+    padding: 2rem 0 10rem;
+    /*top, right, left, bottom */
+}
+
+.sr-only{
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    position:absolute;
+}
+
+.conteiner {
+    width: min(200vw, 50vw);
+    margin: auto;
+    margin-top: -4rem;
+}
+
+#balance h2{
+    color: white;
+    font-weight: 100;
+}
+
+.card{
+    background:var(--bg-white);
+    border-radius: 0.30rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem 1.5rem;
+}
+
+.card_total{
+    padding: 1.5rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0.30rem;
+    background-image: var(--gradient);
+    color:white;
+}
+
+.card h3{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card_total h3{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#transactions{
+    overflow-x: auto;
+    display: block;
+}
+
+#transactions-table {
+    width: 100%;
+    border-spacing: 0 0.5rem;
+}
+
+/*Links and buttons*/
+a {
+    color: rgb(0, 31, 209);
+    text-decoration: none;
+}
+
+a:hover{
+    color: var(--main-blue);
+}
+
+button:hover{
+    background-image: linear-gradient(to right, rgb(75, 78, 255), rgb(131, 194, 253));
+}
+
+.button.new {
+    margin-bottom: .8rem;
+}
+
+button{
+    width: 100%;
+    height: 50px;
+    border:none;
+    color: white;
+    font-family: 'Yusei Magic', sans-serif;
+    padding: 0;
+    border-radius: 0.3rem;
+    cursor:pointer;
+    background-image: var(--gradient);
+}
+
+.button.cancel{
+    color: red;
+    border: 2px red solid;
+    border-radius: 0.3rem;
+    height: 50px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button.cancel:hover{
+    color: rgb(180, 0, 0);
+    border-color: rgb(180, 0, 0);
+}
+
+table tbody tr td:first-child,
+table thead tr th:first-child
+{
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+table tbody tr td:last-child,
+table thead tr th:last-child
+{
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+table tr{
+    opacity:0.7
+}
+
+table tr:hover{
+    opacity: 1
+}
+
+table th{
+    background:var(--bg-white);
+    padding: 1rem 1rem;
+}
+table td{
+    background:white;
+    padding: 0.4rem 0.4rem;
+}
+
+table td:hover{
+    opacity: 1;
+}
+
+.modal-overlay{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+.modal-overlay.active{
+    opacity:1;
+    visibility: visible;
+}
+
+.modal{
+    background: rgba(255, 255, 255, 0.87);
+    padding: 2.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+#form{
+    max-width: 500PX;
+}
+
+#form h2 {
+    margin-top: 0;
+}
+
+input {
+    border:none;
+    border-radius: 0.3rem;
+    padding: 0.8rem;
+    width: 100%;
+}
+
+.input-group {
+    margin-top: 0.8rem
+}
+
+.input-group small{
+    opacity: 0.4;
+}
+
+.input-group.actions .button,
+.input-group.actions button{
+    width: 48%;
+}
+
+.input-group.actions{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer{
+    text-align: center;
+    padding: 4rem 0 2rem;
+    opacity: 0.7;
+}
+
+@media (min-width: 800px) {
+    html{
+        font-size: 87.5%;/*14px*/
+    }
+    #balance{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+.income{
+    color: green;
+}
+
+.expense{
+    color: red;
+}
