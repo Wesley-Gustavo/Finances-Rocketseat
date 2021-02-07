@@ -1,4 +1,4 @@
-let Modal = {
+const Modal = {
     open(){
         //alert("abrir o modal") "cria uma notificação na tela".
         document
@@ -13,12 +13,48 @@ let Modal = {
     }
 }
 
-let Transactions = {
+const transactions = [
+    {
+        description: 'luz',
+        ammount: -50000,
+        date:'23/01/2021'
+    },
+    {
+        description: 'website',
+        ammount: 500000,
+        date:'23/01/2021'
+    },
+    {
+        description: 'internet',
+        ammount: -20000,
+        date:'23/01/2021'
+    },
+    {
+        description: 'App',
+        ammount: 200000,
+        date:'23/01/2021'
+    },
+]
+
+const Transactions = {
+    all: transactions,
+
+    add(transaction) {
+        Transactions.all.push(transaction)
+
+        App.reload()
+    },
+
+    Remove(index) {
+        Transactions.all.splice(index, 1)
+        
+        App.reload()
+    },
 
     incomes() {
         let income = 0;
 
-        transactions.forEach(transaction => { // ou (transaction => {})
+        Transactions.all.forEach(transaction => { // ou (transaction => {})
             
             if(transaction.ammount > 0) {
                 
@@ -32,13 +68,13 @@ let Transactions = {
     expenses() {
         let expense = 0;
 
-        transactions.forEach(transaction=> {
+        Transactions.all.forEach(transaction=> {
             if(transaction.ammount < 0) {
                 expense += transaction.ammount;
             }
         })
 
-        return expense
+        return expense;
     },
 
     total() {
@@ -46,36 +82,9 @@ let Transactions = {
 
         total = Transactions.incomes() + Transactions.expenses()
 
-        return total
+        return total;
     }
 }
-
-let transactions = [
-    {
-        id: 1,
-        description: 'luz',
-        ammount: -50000,
-        date:'23/01/2021'
-    },
-    {
-        id: 2,
-        description: 'website',
-        ammount: 500000,
-        date:'23/01/2021'
-    },
-    {
-        id: 3,
-        description: 'internet',
-        ammount: -20000,
-        date:'23/01/2021'
-    },
-    {
-        id: 4,
-        description: 'App',
-        ammount: 200000,
-        date:'23/01/2021'
-    },
-]
 
 let DOM = {
     transactionsContainer: document.querySelector('#transactions-table tbody'),
@@ -112,12 +121,15 @@ let DOM = {
         document
             .getElementById('total-display')
             .innerHTML = Utils.formatCurrency(Transactions.total())
+    },
+
+    clearTransaction() {
+        DOM.transactionsContainer.innerHTML = ""
     }
 
 }
 
-
-let Utils = {
+const Utils = {
     formatCurrency(value){
         let signal = Number(value) < 0 ? "-" : ""
 
@@ -134,8 +146,32 @@ let Utils = {
     }
 }
 
-transactions.forEach(function(transaction){
-    DOM.addTransaction(transaction)
-})
+const App = {
+    init(){
+        Transactions.all.forEach(transaction => {
+            DOM.addTransaction(transaction)
+        })
 
-DOM.updateBalance()
+        DOM.updateBalance()
+
+    },
+
+    reload(){
+        DOM.clearTransaction()
+        App.init()
+    },
+}
+
+App.init()
+
+//método de adicionar transação
+
+/*Transactions.add({
+    description: 'teste',
+    ammount: 200,
+    date: '23/01/2021'
+})*/
+
+//método de remover transação
+
+//Transactions.Remove(3)
