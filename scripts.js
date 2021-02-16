@@ -10,34 +10,25 @@ const Modal = {
         document
             .querySelector('.modal-overlay')
             .classList.remove('active')
+        document
+            .querySelector('#ErrorMessage')
+            .classList.remove('active')
     }
 }
 
-const transactions = [
-    {
-        description: 'luz',
-        ammount: -50000,
-        date:'23/01/2021'
+const Storage = {
+    get() {
+        return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
+
     },
-    {
-        description: 'website',
-        ammount: 500000,
-        date:'23/01/2021'
-    },
-    {
-        description: 'internet',
-        ammount: -20000,
-        date:'23/01/2021'
-    },
-    {
-        description: 'App',
-        ammount: 200000,
-        date:'23/01/2021'
-    },
-]
+
+    set(Transactions) {
+        localStorage.setItem("dev.finances:transactions", JSON.stringify(Transactions))
+    }
+}
 
 const Transactions = {
-    all: transactions,
+    all: Storage.get(),
 
     add(transaction) {
         Transactions.all.push(transaction)
@@ -56,9 +47,9 @@ const Transactions = {
 
         Transactions.all.forEach(transaction => { // ou (transaction => {})
             
-            if(transaction.ammount > 0) {
+            if(transaction.amount > 0) {
                 
-                income = income + transaction.ammount; // ou income += transaction.ammount;
+                income = income + transaction.amount; // ou income += transaction.amount;
             
             }
         }) 
@@ -69,8 +60,8 @@ const Transactions = {
         let expense = 0;
 
         Transactions.all.forEach(transaction=> {
-            if(transaction.ammount < 0) {
-                expense += transaction.ammount;
+            if(transaction.amount < 0) {
+                expense += transaction.amount;
             }
         })
 
@@ -86,27 +77,30 @@ const Transactions = {
     }
 }
 
-let DOM = {
+const DOM = {
     transactionsContainer: document.querySelector('#transactions-table tbody'),
 
     addTransaction(transaction, index) {
-        let tr = document.createElement('tr')
-        tr.innerHTML = DOM.innerHTMLTransaction(transaction)
+        const tr = document.createElement('tr')
+        tr.innerHTML = DOM.innerHTMLTransaction(transaction, index)
+        tr.dataset.index = index
+
         DOM.transactionsContainer.appendChild(tr)
     },
 
-    innerHTMLTransaction(transaction)  {
+    innerHTMLTransaction(transaction, index)  {
 
-        let ammount = Utils.formatCurrency(transaction.ammount)
+        const amount = Utils.formatCurrency(transaction.amount)
 
-        let CSSClass = transaction.ammount > 0 ? "income" :
+        const CSSClass = transaction.amount > 0 ? "income" :
         "expense"
 
-        let html = `
+        const html = `
             <td class="table-description">${transaction.description}</th>
-            <td class="${CSSClass}">${ammount}</th>
+            <td class="${CSSClass}">${amount}</th>
             <td class="table-date">${transaction.date}</td>
-            <td><img src="./maratona-discover-01-main/assets/minus.svg" alt="Remover Transação"></td>
+            <td><img onclick="Transactions.Remove(${index})" src="./maratona-discover-01-main/assets/minus.svg" alt="Remover Transação"></td>
+
         `
         return html
     },
@@ -131,7 +125,7 @@ let DOM = {
 
 const Utils = {
     formatCurrency(value){
-        let signal = Number(value) < 0 ? "-" : ""
+        const signal = Number(value) < 0 ? "-" : ""
 
         value = String(value).replace(/\D/g, "")
 
@@ -143,17 +137,101 @@ const Utils = {
         })
 
         return signal + value
-    }
+    },
+
+    formatAmount(value){
+        value = value * 100
+        
+        return Math.round(value)
+    },
+
+    formatDate(date){
+        const splitDate = date.split('-')
+
+        return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
+    },
+}
+
+const Form = {
+    description: document.querySelector('input#description'),
+    amount: document.querySelector('input#amount'),
+    date: document.querySelector('input#date'),
+
+    getValues(){
+        return {
+            description: Form.description.value,
+            amount: Form.amount.value,
+            date: Form.date.value
+        }
+    },
+
+    validateField(){
+        const {description, amount, date} = Form.getValues()
+
+        if (description.trim() === "" ||
+            amount.trim() === "" ||
+            date.trim() === "") {
+                throw new Error("Todos os campos devem ser preenchidos")
+        }
+
+        else {
+            document
+                .querySelector('#ErrorMessage')
+                .classList.remove('active')
+        }
+
+    },
+
+    formatValues() {
+        let {description, amount, date} = Form.getValues()
+
+        amount = Utils.formatAmount(amount)
+
+        date = Utils.formatDate(date)
+
+        return {
+            description,
+            amount,
+            date
+        }
+    },
+
+    clearFields(){
+        Form.description.value = ""
+        Form.amount.value = ""
+        Form.date.value = ""
+    },
+
+    submit(event){
+        event.preventDefault()
+
+        Form.formatData
+        try {
+            Form.validateField()
+            const transaction = Form.formatValues()
+            Transactions.add(transaction)
+            Form.clearFields()
+            Modal.close()
+        } 
+        
+        catch (error) {
+            //alert (error.message);
+            document
+                .querySelector('#ErrorMessage')
+                .classList.add('active')
+        }
+    },
+
 }
 
 const App = {
     init(){
-        Transactions.all.forEach(transaction => {
-            DOM.addTransaction(transaction)
-        })
+        Transactions.all.forEach(DOM.addTransaction)
+        
 
         DOM.updateBalance()
 
+        Storage.set(Transactions.all)
     },
 
     reload(){
@@ -168,10 +246,9 @@ App.init()
 
 /*Transactions.add({
     description: 'teste',
-    ammount: 200,
+    amount: 200,
     date: '23/01/2021'
 })*/
 
 //método de remover transação
-
 //Transactions.Remove(3)

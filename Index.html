@@ -35,7 +35,7 @@
                     <span>Entradas:</span>
                     <img src="./maratona-discover-01-main/assets/income.svg" alt="Entradas">
                 </h3>
-                <p id = "incomes-display">R$ 5.000,00</p>
+                <p id = "incomes-display">R$ 0,00</p>
             </div>
 
             <div class="card">
@@ -43,7 +43,7 @@
                     <span>Saídas:</span>
                     <img src="./maratona-discover-01-main/assets/expense.svg" alt="saídas">
                 </h3>
-                <p id = "expense-display">R$ 2.000,00</p>
+                <p id = "expense-display">R$ 0,00</p>
             </div>
 
             <div class="card_total">
@@ -51,7 +51,7 @@
                     <span>Total:</span>
                     <img src="./maratona-discover-01-main/assets/total.svg" alt="Total">
                 </h3>
-                <p id= "total-display">R$ 3.000,00</p>
+                <p id= "total-display">R$ 0,00</p>
             </div>
 
         </section>
@@ -83,9 +83,10 @@
 
     <div class="modal-overlay">
         <div class="modal">
+            <h1 id= "ErrorMessage" class = "">Erro todos os campos devem ser preenchidos!!!</h1>
             <h2>Adicionar transação</h2>
 
-            <div id="form">
+            <form actions= "" onsubmit = "Form.submit(event)">
                 <div class="input-group">
                     <label class="sr-only" for="description">Descrição:</label>
                     <input
@@ -99,8 +100,8 @@
                     <label class="sr-only" for="valor" >Valor:</label>
                     <input
                     step="0.01"
-                    id="ammount"
-                    name="ammount"
+                    id="amount"
+                    name="amount"
                     type="number"
                     placeholder="Valor">
                     <small class="help">Use o sinal - (negativo) para despesas e , (virgula) para casas decimais.</small>
@@ -109,8 +110,8 @@
                 <div class="input-group">
                     <label class="sr-only" for="Date">Data:</label>
                     <input
-                    id="Date"
-                    name="Date"
+                    id="date"
+                    name="date"
                     type="date">
                 </div>
 
@@ -120,7 +121,7 @@
                     class="button cancel">Cancelar</a>
                     <button>Salvar</button>
                 </div>
-            </div>
+            </form>
 
         </div>
     </div>

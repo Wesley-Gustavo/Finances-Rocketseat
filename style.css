@@ -20,6 +20,23 @@ body {
     font-family: 'Yusei Magic', sans-serif;
 }
 
+.modal h1 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 400;
+    text-align: center;
+    border-radius: 0.30rem;
+    color: red;
+    visibility: hidden;
+    position: absolute;
+    text-decoration: underline;
+}
+
+.modal .active{
+    visibility:visible;
+    position: initial;
+}
+
 header {
     text-align: center;
     background-image: var(--gradient);
@@ -77,6 +94,7 @@ header {
 #transactions{
     overflow-x: auto;
     display: block;
+    width: 100%;
 }
 
 #transactions-table {
@@ -152,9 +170,10 @@ table tr:hover{
 
 table th{
     background:var(--bg-white);
-    padding: 1rem 1rem;
+    padding: 1rem;
+    text-align: left;
 }
-table td{
+table tbody td{
     background:white;
     padding: 0.4rem 0.4rem;
 }
@@ -189,11 +208,11 @@ table td:hover{
     z-index: 1;
 }
 
-#form{
-    max-width: 500PX;
+form{
+    max-width: 400PX;
 }
 
-#form h2 {
+form h2 {
     margin-top: 0;
 }
 
