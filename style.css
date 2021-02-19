@@ -1,7 +1,7 @@
 :root{
     --main-blue: rgb(34, 67, 255);
     --gradient: linear-gradient(to right, rgb(38, 0, 255), rgb(97, 179, 255));
-    --bg-body: rgb(221, 221, 221);
+    --bg-body: rgb(231, 236, 243);
     --bg-white: white;
 }
 
@@ -20,27 +20,38 @@ body {
     font-family: 'Yusei Magic', sans-serif;
 }
 
+@-webkit-keyframes blinker {
+    from { 
+        opacity: 0.0;
+    }
+    to { 
+        opacity: 1.0;
+    }
+}
+
 .modal h1 {
     margin: 0;
-    font-size: 17px;
-    font-weight: 400;
+    font-size: 11px;
+    font-weight: 300;
     text-align: center;
-    border-radius: 0.30rem;
     color: red;
     visibility: hidden;
-    position: absolute;
     text-decoration: underline;
 }
 
 .modal .active{
     visibility:visible;
     position: initial;
+    -webkit-animation-name: blinker;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+    -webkit-animation-duration: 1.0s;
 }
 
 header {
     text-align: center;
     background-image: var(--gradient);
-    padding: 2rem 0 10rem;
+    padding: 2rem 0 6rem;
     /*top, right, left, bottom */
 }
 
@@ -54,9 +65,14 @@ header {
 }
 
 .conteiner {
-    width: min(200vw, 50vw);
+    width: min(200vw, 60vw);
     margin: auto;
     margin-top: -4rem;
+}
+
+header #Principal_Logo{
+    width: 350px;
+    box-sizing: content-box;
 }
 
 #balance h2{
@@ -202,7 +218,7 @@ table td:hover{
 }
 
 .modal{
-    background: rgba(255, 255, 255, 0.87);
+    background: var(--bg-body);
     padding: 2.4rem;
     position: relative;
     z-index: 1;
@@ -228,7 +244,10 @@ input {
 }
 
 .input-group small{
-    opacity: 0.4;
+    opacity: 0.5;
+    font-size: 70%;
+    padding: 0 0.2rem 0;
+    text-decoration: underline;
 }
 
 .input-group.actions .button,

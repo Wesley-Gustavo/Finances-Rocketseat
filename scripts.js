@@ -99,8 +99,7 @@ const DOM = {
             <td class="table-description">${transaction.description}</th>
             <td class="${CSSClass}">${amount}</th>
             <td class="table-date">${transaction.date}</td>
-            <td><img onclick="Transactions.Remove(${index})" src="./maratona-discover-01-main/assets/minus.svg" alt="Remover Transação"></td>
-
+            <td><img onclick="Transactions.Remove(${index})" src="./assets/minus.svg" alt="Remover Transação"></td>
         `
         return html
     },
