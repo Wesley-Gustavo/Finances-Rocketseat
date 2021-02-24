@@ -51,7 +51,7 @@ body {
 header {
     text-align: center;
     background-image: var(--gradient);
-    padding: 2rem 0 6rem;
+    padding: 2rem 0 9rem;
     /*top, right, left, bottom */
 }
 
@@ -65,7 +65,7 @@ header {
 }
 
 .conteiner {
-    width: min(200vw, 60vw);
+    width: min(90vw, 800px);
     margin: auto;
     margin-top: -4rem;
 }
@@ -77,7 +77,6 @@ header #Principal_Logo{
 
 #balance h2{
     color: white;
-    font-weight: 100;
 }
 
 .card{
@@ -85,6 +84,22 @@ header #Principal_Logo{
     border-radius: 0.30rem;
     margin-bottom: 2rem;
     padding: 1.5rem 1.5rem;
+}
+
+.card p {
+    font-size: 2rem;
+}
+
+.card #incomes-display{
+    color: rgb(34, 179, 34);
+}
+
+.card #expense-display{
+    color:rgb(223, 70, 70);
+}
+
+.card_total p {
+    font-size: 2rem;
 }
 
 .card_total{
@@ -274,7 +289,7 @@ footer{
     #balance{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
+        gap: 2rem;
     }
 }
 
